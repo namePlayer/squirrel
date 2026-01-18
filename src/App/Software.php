@@ -19,11 +19,11 @@ class Software
 
     public const CACHE_DIR = __DIR__ . '/../../data/cache';
     public const LOG_DIR = __DIR__ . '/../../data/log';
-    public const MODEL_DIR = __DIR__ . '/Model';
 
     public const LOG_FILENAME = 'app.log';
     public const CONSOLE_LOG_FILENAME = 'console.log';
 
+    public const RESOURCE_LIST_PATH = __DIR__.'/../../config/resources.yaml';
 
     #
     # Global Variables
@@ -31,6 +31,7 @@ class Software
     public const int MAX_EMAIL_LENGTH = 255;
     public const int MIN_USERNAME_LENGTH = 5;
     public const int MAX_USERNAME_LENGTH = 50;
+    public const int MAX_RESOURCE_UID_LENGTH = 255;
 
     /**
      * @throws EnvironmentException

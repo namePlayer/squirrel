@@ -5,7 +5,7 @@ namespace App\Model;
 
 use Ramsey\Uuid\UuidInterface;
 
-class AccountItem
+class AccountResource
 {
 
     public UuidInterface $id {
@@ -24,7 +24,7 @@ class AccountItem
             $this->account = $value;
         }
     }
-    public Item $item {
+    public Resource $item {
         get {
             return $this->item;
         }

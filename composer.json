@@ -24,6 +24,7 @@
       "symfony/dotenv": "^v7.4.0",
       "symfony/console": "^v7.4.3",
       "monolog/monolog": "^3.10.0",
-        "ramsey/uuid": "^4.9"
+        "ramsey/uuid": "^4.9",
+        "symfony/yaml": "^8.0"
     }
 }

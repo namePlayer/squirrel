@@ -1,0 +1,16 @@
+---
+apple:
+  gold_sell: 25
+  gold_buy: 0
+apple_sapling:
+  gold_sell: 5
+  gold_buy: 10
+cherry:
+  gold_sell: 25
+  gold_buy: 0
+cherry_sapling:
+  gold_sell: 25
+  gold_buy: 10
+wood:
+  gold_sell: 10
+  gold_buy: 0

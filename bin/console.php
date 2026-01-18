@@ -20,4 +20,10 @@ $console->addCommand(
     )
 );
 
+$console->addCommand(
+    new \App\Command\Resource\AppResourceSyncCommand(
+        $container->get(\App\Service\Resource\ResourceService::class),
+    )
+);
+
 $console->run();

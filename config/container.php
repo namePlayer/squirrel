@@ -19,10 +19,16 @@ $container->add(\App\Service\Account\AccountService::class)
 
 $container->add(\App\Service\Account\PasswordService::class);
 
+$container->add(\App\Service\Resource\ResourceService::class)
+    ->addArgument(\App\Table\Resource\ResourceTable::class);
+
 #
 # Repositories
 #
 $container->add(\App\Table\Account\AccountTable::class)
+    ->addArgument(\Doctrine\DBAL\Query\QueryBuilder::class);
+
+$container->add(\App\Table\Resource\ResourceTable::class)
     ->addArgument(\Doctrine\DBAL\Query\QueryBuilder::class);
 
 #
