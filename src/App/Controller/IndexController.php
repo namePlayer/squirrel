@@ -15,7 +15,6 @@ class IndexController
 
     public function __construct(
         private readonly Engine $templateEngine,
-        private readonly QueryBuilder $queryBuilder,
     )
     {
     }

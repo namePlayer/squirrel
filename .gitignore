@@ -8,8 +8,6 @@
 !/data/log/.gitkeep
 /data/cache/*
 !/data/cache/.gitkeep
-/data/cache/orm/*
-!/data/cache/orm/.gitkeep
 /data/persistent/*
 !/data/persistent/.gitkeep
 db.sql

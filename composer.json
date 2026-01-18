@@ -2,7 +2,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/App/"
         }
     },
     "authors": [
@@ -23,9 +23,7 @@
       "laminas/laminas-httphandlerrunner": "^2.13.0",
       "symfony/dotenv": "^v7.4.0",
       "symfony/console": "^v7.4.3",
-      "symfony/cache": "^7",
       "monolog/monolog": "^3.10.0",
-      "doctrine/orm": "3.6.1",
-      "symfony/var-exporter": "^7"
+        "ramsey/uuid": "^4.9"
     }
 }

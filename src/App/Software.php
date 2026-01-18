@@ -17,17 +17,25 @@ class Software
     public const BUILD = '000001';
     public const TYPE = 'dev';
 
-    public const CACHE_DIR = __DIR__ . '/../data/cache';
-    public const LOG_DIR = __DIR__ . '/../data/log';
+    public const CACHE_DIR = __DIR__ . '/../../data/cache';
+    public const LOG_DIR = __DIR__ . '/../../data/log';
     public const MODEL_DIR = __DIR__ . '/Model';
 
     public const LOG_FILENAME = 'app.log';
     public const CONSOLE_LOG_FILENAME = 'console.log';
 
+
+    #
+    # Global Variables
+    #
+    public const int MAX_EMAIL_LENGTH = 255;
+    public const int MIN_USERNAME_LENGTH = 5;
+    public const int MAX_USERNAME_LENGTH = 50;
+
     /**
      * @throws EnvironmentException
      */
-    public static function initEnvironment(string $location = __DIR__ . '/../.env'): void
+    public static function initEnvironment(string $location = __DIR__ . '/../../.env'): void
     {
         $envLoad = new Dotenv();
 

@@ -8,16 +8,27 @@ $container = new Container();
 # Controllers
 #
 $container->add(\App\Controller\IndexController::class)
-    ->addArgument(\League\Plates\Engine::class)
-    ->addArgument(\Doctrine\DBAL\Query\QueryBuilder::class);
+    ->addArgument(\League\Plates\Engine::class);
 
 #
 # Services
 #
+$container->add(\App\Service\Account\AccountService::class)
+    ->addArgument(\App\Table\Account\AccountTable::class)
+    ->addArgument(\App\Service\Account\PasswordService::class);
+
+$container->add(\App\Service\Account\PasswordService::class);
 
 #
 # Repositories
 #
+$container->add(\App\Table\Account\AccountTable::class)
+    ->addArgument(\Doctrine\DBAL\Query\QueryBuilder::class);
+
+#
+# Validator
+#
+$container->add(\App\Validator\AccountRegistrationValidator::class);
 
 #
 # Dependencies
@@ -26,10 +37,6 @@ $container->add(\App\Controller\IndexController::class)
 $container->add(\Doctrine\DBAL\Connection::class, new \App\Factory\DatabaseFactory()->connect());
 
 $container->add(\Doctrine\DBAL\Query\QueryBuilder::class, new \App\Factory\DatabaseFactory()->queryBuilder());
-
-$container->add(\Doctrine\ORM\EntityManager::class, new \App\Factory\OrmFactory()->create(
-    $container->get(\Doctrine\DBAL\Connection::class)
-));
 
 $container->add(\Monolog\Logger::class)
     ->addArgument('app')
