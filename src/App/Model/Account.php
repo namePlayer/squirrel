@@ -10,12 +10,20 @@ use Ramsey\Uuid\UuidInterface;
 class Account
 {
 
-    public UuidInterface $id {
+    public int $id {
         get {
             return $this->id;
         }
         set {
             $this->id = $value;
+        }
+    }
+    public UuidInterface $slug {
+        get {
+            return $this->slug;
+        }
+        set {
+            $this->slug = $value;
         }
     }
     public string $email {
@@ -46,16 +54,21 @@ class Account
     public static function hydrate(array $data): Account
     {
         $model = new self();
-        $model->id = Uuid::fromString($data['id']);
+        $model->id = $data['id'];
+        $model->slug = Uuid::fromString($data['slug']);
         $model->email = $data['email'];
         $model->username = $data['username'];
         $model->passwordHash = $data['passwordHash'];
         return $model;
     }
 
-    public function extract(): array
+    public function extract(bool $ignoreId = false): array
     {
-        $array['id'] = $this->id->toString();
+        if(false === $ignoreId)
+        {
+            $array['id'] = $this->id;
+        }
+        $array['slug'] = $this->slug->toString();
         $array['email'] = $this->email;
         $array['username'] = $this->username;
         $array['passwordHash'] = $this->passwordHash;

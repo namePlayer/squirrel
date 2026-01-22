@@ -16,7 +16,7 @@ class AccountTable extends AbstractTable
         $queryBuilder = new QueryBuilder($this->query);
         $queryResult = $queryBuilder->insert($this->getTableName());
         $index = 0;
-        foreach ($account->extract() as $field => $value) {
+        foreach ($account->extract(ignoreId: true) as $field => $value) {
             $queryResult->setValue($field, '?');
             $queryResult->setParameter($index, $value);
             $index++;
@@ -29,13 +29,27 @@ class AccountTable extends AbstractTable
         }
     }
 
-    public function findById(string $id): ?Account
+    public function findById(int $id): ?Account
     {
         $queryBuilder = new QueryBuilder($this->query);
         $queryResult = $queryBuilder->from($this->getTableName())
             ->select("*")
             ->where('id = ?')
             ->setParameter(0, $id)
+            ->fetchAssociative();
+        if(false !== $queryResult) {
+            return Account::hydrate($queryResult);
+        }
+        return null;
+    }
+
+    public function findBySlug(string $slug): ?Account
+    {
+        $queryBuilder = new QueryBuilder($this->query);
+        $queryResult = $queryBuilder->from($this->getTableName())
+            ->select("*")
+            ->where('slug = ?')
+            ->setParameter(0, $slug)
             ->fetchAssociative();
         if(false !== $queryResult) {
             return Account::hydrate($queryResult);

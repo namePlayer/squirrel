@@ -1,35 +1,32 @@
---
--- Database basic layout creation for MariaDB 10.11
---
+-- Account definition
 
 CREATE TABLE `Account` (
-    id UUID NOT NULL,
-    email varchar(255) NULL,
-    username varchar(50) NULL,
-    passwordHash varchar(255) NULL,
-    CONSTRAINT Account_PK PRIMARY KEY (id)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_general_ci;
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `slug` varchar(100) NOT NULL,
+    `email` varchar(255) NOT NULL,
+    `username` varchar(50) NOT NULL,
+    `passwordHash` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `Account_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Resource definition
 
 CREATE TABLE `Resource` (
     `uid` varchar(255) NOT NULL,
     PRIMARY KEY (`uid`)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- AccountResource definition
 
 CREATE TABLE `AccountResource` (
-    id UUID NOT NULL,
-    account UUID NULL,
-    item varchar(255) NULL,
-    quantity INT UNSIGNED NULL,
-    CONSTRAINT AccountResource_PK PRIMARY KEY (id),
-    CONSTRAINT AccountResource_Account_FK FOREIGN KEY (account) REFERENCES Account(id),
-    CONSTRAINT AccountResource_Item_FK FOREIGN KEY (item) REFERENCES Resource(uid)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_general_ci;
+    `account` int(11) NOT NULL,
+    `resource` varchar(255) NOT NULL,
+    `quantity` int(10) unsigned NOT NULL,
+    PRIMARY KEY (`account`,`resource`),
+    KEY `AccountResource_Resource_FK` (`resource`),
+    CONSTRAINT `AccountResource_Account_FK` FOREIGN KEY (`account`) REFERENCES `Account` (`id`),
+    CONSTRAINT `AccountResource_Resource_FK` FOREIGN KEY (`resource`) REFERENCES `Resource` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

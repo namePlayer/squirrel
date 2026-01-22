@@ -9,15 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 class AccountResource
 {
 
-    public UuidInterface $id {
-        get {
-            return $this->id;
-        }
-        set {
-            $this->id = $value;
-        }
-    }
-    public UuidInterface $account {
+    public int $account {
         get {
             return $this->account;
         }
@@ -45,8 +37,7 @@ class AccountResource
     public static function hydrate(array $data): AccountResource
     {
         $self = new self();
-        $self->id = Uuid::fromString($data['id']);
-        $self->account = Uuid::fromString($data['account']);
+        $self->account = $data['account'];
         $self->resource = $data['resource'];
         $self->quantity = $data['quantity'];
         return $self;

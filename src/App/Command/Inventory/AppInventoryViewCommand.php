@@ -37,9 +37,14 @@ class AppInventoryViewCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $accountId = Uuid::fromString($input->getArgument('accountId'));
+        $accountId = $input->getArgument('accountId');
+        if(!is_numeric($accountId)) {
+            $output->writeln('<error>Account ID is not valid.</error>');
+            return Command::FAILURE;
+        }
+        $accountId = (int)$accountId;
         if(!$this->accountService->getAccountById($accountId) instanceof Account) {
-            $output->writeln('<error>Account with UUID '. $accountId .' not found!</error>');
+            $output->writeln('<error>Account with ID '. $accountId .' not found.</error>');
             return Command::FAILURE;
         }
 
@@ -52,10 +57,8 @@ class AppInventoryViewCommand extends Command
         }
 
         if(empty($inventory)) {
-
             $inventory = $this->inventoryService->getAccountInventory($accountId);
         }
-
 
         foreach ($inventory as $inventoryItem) {
 

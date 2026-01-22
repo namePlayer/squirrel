@@ -29,8 +29,8 @@ class AccountService
 
         $account = new Account();
         do {
-            $account->id = Uuid::uuid4();
-        } while($this->getAccountById($account->id) instanceof Account);
+            $account->slug = Uuid::uuid4();
+        } while($this->getAccountBySlug($account->slug) instanceof Account);
 
         $account->username = $accountDTO->username;
         $account->email = $accountDTO->email;
@@ -47,9 +47,14 @@ class AccountService
         return $this->accountTable->findByEmail($email);
     }
 
-    public function getAccountById(UuidInterface $id): ?Account
+    public function getAccountBySlug(UuidInterface $slug): ?Account
     {
-        return $this->accountTable->findById($id->toString());
+        return $this->accountTable->findBySlug($slug->toString());
+    }
+
+    public function getAccountById(int $id): ?Account
+    {
+        return $this->accountTable->findById($id);
     }
 
 }
