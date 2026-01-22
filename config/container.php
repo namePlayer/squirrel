@@ -22,14 +22,21 @@ $container->add(\App\Service\Account\PasswordService::class);
 $container->add(\App\Service\Resource\ResourceService::class)
     ->addArgument(\App\Table\Resource\ResourceTable::class);
 
+$container->add(\App\Service\Resource\InventoryService::class)
+    ->addArgument(\App\Service\Resource\ResourceService::class)
+    ->addArgument(\App\Table\Resource\AccountResourceTable::class);
+
 #
 # Repositories
 #
 $container->add(\App\Table\Account\AccountTable::class)
-    ->addArgument(\Doctrine\DBAL\Query\QueryBuilder::class);
+    ->addArgument(\Doctrine\DBAL\Connection::class);
 
 $container->add(\App\Table\Resource\ResourceTable::class)
-    ->addArgument(\Doctrine\DBAL\Query\QueryBuilder::class);
+    ->addArgument(\Doctrine\DBAL\Connection::class);
+
+$container->add(\App\Table\Resource\AccountResourceTable::class)
+    ->addArgument(\Doctrine\DBAL\Connection::class);
 
 #
 # Validator

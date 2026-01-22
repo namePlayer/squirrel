@@ -6,21 +6,23 @@ namespace App\Table\Account;
 use App\Model\Account;
 use App\Table\AbstractTable;
 use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 class AccountTable extends AbstractTable
 {
 
     public function insert(Account $account): bool
     {
-        $query = $this->query->insert($this->getTableName());
+        $queryBuilder = new QueryBuilder($this->query);
+        $queryResult = $queryBuilder->insert($this->getTableName());
         $index = 0;
         foreach ($account->extract() as $field => $value) {
-            $query->setValue($field, '?');
-            $query->setParameter($index, $value);
+            $queryResult->setValue($field, '?');
+            $queryResult->setParameter($index, $value);
             $index++;
         }
         try {
-            $query->executeQuery();
+            $queryResult->executeQuery();
             return true;
         } catch (Exception $e) {
             return false;
@@ -29,7 +31,8 @@ class AccountTable extends AbstractTable
 
     public function findById(string $id): ?Account
     {
-        $queryResult = $this->query->from($this->getTableName())
+        $queryBuilder = new QueryBuilder($this->query);
+        $queryResult = $queryBuilder->from($this->getTableName())
             ->select("*")
             ->where('id = ?')
             ->setParameter(0, $id)
@@ -42,7 +45,8 @@ class AccountTable extends AbstractTable
 
     public function findByEmail(string $email): ?Account
     {
-        $queryResult = $this->query->from($this->getTableName())
+        $queryBuilder = new QueryBuilder($this->query);
+        $queryResult = $queryBuilder->from($this->getTableName())
             ->select("*")
             ->where('email = ?')
             ->setParameter(0, $email)

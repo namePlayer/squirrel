@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class AccountResource
@@ -16,7 +17,7 @@ class AccountResource
             $this->id = $value;
         }
     }
-    public Account $account {
+    public UuidInterface $account {
         get {
             return $this->account;
         }
@@ -24,12 +25,12 @@ class AccountResource
             $this->account = $value;
         }
     }
-    public Resource $item {
+    public string $resource {
         get {
-            return $this->item;
+            return $this->resource;
         }
         set {
-            $this->item = $value;
+            $this->resource = $value;
         }
     }
     public int $quantity {
@@ -39,6 +40,16 @@ class AccountResource
         set {
             $this->quantity = $value;
         }
+    }
+
+    public static function hydrate(array $data): AccountResource
+    {
+        $self = new self();
+        $self->id = Uuid::fromString($data['id']);
+        $self->account = Uuid::fromString($data['account']);
+        $self->resource = $data['resource'];
+        $self->quantity = $data['quantity'];
+        return $self;
     }
 
 }

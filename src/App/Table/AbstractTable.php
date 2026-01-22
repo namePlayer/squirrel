@@ -2,6 +2,7 @@
 
 namespace App\Table;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use ReflectionClass;
 
@@ -10,7 +11,7 @@ class AbstractTable
 
     private string $table;
 
-    public function __construct(public QueryBuilder $query)
+    public function __construct(public readonly Connection $query)
     {
         $this->table = substr(new ReflectionClass($this)->getShortName(), 0, -5);
     }
@@ -22,7 +23,8 @@ class AbstractTable
 
     public function findAll(): bool|array
     {
-        return $this->query->from($this->table)
+        $queryBuilder = new QueryBuilder($this->query);
+        return $queryBuilder->from($this->table)
             ->fetchAllAssociative();
     }
 

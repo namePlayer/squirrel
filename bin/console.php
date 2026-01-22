@@ -26,4 +26,13 @@ $console->addCommand(
     )
 );
 
+$console->addCommand(new \App\Command\Inventory\AppInventoryAddCommand(
+    $container->get(\App\Service\Resource\InventoryService::class),
+));
+
+$console->addCommand(new \App\Command\Inventory\AppInventoryViewCommand(
+    $container->get(\App\Service\Resource\InventoryService::class),
+    $container->get(\App\Service\Account\AccountService::class)
+));
+
 $console->run();
