@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace App\Command\Inventory;
 
+use App\Exception\Inventory\AccountResourceAmountCantBeLessThanZeroException;
+use App\Exception\Inventory\AccountResourceIsNotInInventoryException;
 use App\Exception\Inventory\ResourceCouldNotBeAddedToInventoryException;
+use App\Exception\Inventory\ResourceCouldNotBeTakenFromInventoryException;
 use App\Model\Account;
 use App\Model\Resource;
 use App\Service\Account\AccountService;
@@ -16,10 +19,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'app:inventory:add',
-    description: 'Add a item to an users inventory'
+    name: 'app:inventory:take',
+    description: 'Take a item from an users inventory'
 )]
-class AppInventoryAddCommand extends Command
+class AppInventoryTakeCommand extends Command
 {
 
     public function __construct(
@@ -64,11 +67,18 @@ class AppInventoryAddCommand extends Command
         }
 
         try {
-            $this->inventoryService->addToInventory($accountId, $resourceUid, (int)$amount);
-            $output->writeln('<info>Item added.</info>');
+            $this->inventoryService->takeFromInventory($accountId, $resourceUid, (int)$amount);
+            $output->writeln('<info>Item taken.</info>');
             return Command::SUCCESS;
-        } catch (ResourceCouldNotBeAddedToInventoryException $e) {
-            $output->writeln('<error>Item could not be added to the users inventory due to an unknown error.</error>');
+        } catch (AccountResourceAmountCantBeLessThanZeroException $e) {
+            $output->writeln(
+                '<error>Item could not be taken from the users inventory due to the new amount being less than zero.</error>');
+            return Command::FAILURE;
+        } catch (AccountResourceIsNotInInventoryException $e) {
+            $output->writeln('<error>Item could not be taken from the users inventory as its not in there.</error>');
+            return Command::FAILURE;
+        } catch (ResourceCouldNotBeTakenFromInventoryException $e) {
+            $output->writeln('<error>Item could not be taken from the users inventory due to an unknown error.</error>');
             return Command::FAILURE;
         }
     }

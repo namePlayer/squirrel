@@ -43,4 +43,12 @@ class AccountResource
         return $self;
     }
 
+    public function extract(): array
+    {
+        $self['account'] = $this->account;
+        $self['resource'] = $this->resource;
+        $self['quantity'] = $this->quantity;
+        return $self;
+    }
+
 }

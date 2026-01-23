@@ -23,7 +23,6 @@ $container->add(\App\Service\Resource\ResourceService::class)
     ->addArgument(\App\Table\Resource\ResourceTable::class);
 
 $container->add(\App\Service\Resource\InventoryService::class)
-    ->addArgument(\App\Service\Resource\ResourceService::class)
     ->addArgument(\App\Table\Resource\AccountResourceTable::class);
 
 #

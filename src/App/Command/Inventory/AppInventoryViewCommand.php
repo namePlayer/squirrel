@@ -61,12 +61,10 @@ class AppInventoryViewCommand extends Command
         }
 
         foreach ($inventory as $inventoryItem) {
-
             $output->writeln($inventoryItem->resource);
             $output->writeln('=========');
             $output->writeln('Amount: ' . $inventoryItem->quantity);
             $output->writeln('');
-
         }
 
         return Command::SUCCESS;

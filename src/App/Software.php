@@ -17,13 +17,14 @@ class Software
     public const BUILD = '000001';
     public const TYPE = 'dev';
 
-    public const CACHE_DIR = __DIR__ . '/../../data/cache';
-    public const LOG_DIR = __DIR__ . '/../../data/log';
+    public const BASE_DIR = __DIR__ . '/../..';
+    public const CACHE_DIR = Software::BASE_DIR . '/data/cache';
+    public const LOG_DIR = Software::BASE_DIR . '/data/log';
 
     public const LOG_FILENAME = 'app.log';
     public const CONSOLE_LOG_FILENAME = 'console.log';
 
-    public const RESOURCE_LIST_PATH = __DIR__.'/../../config/resources.yaml';
+    public const RESOURCE_LIST_PATH = Software::BASE_DIR.'/config/resources.yaml';
 
     #
     # Global Variables
@@ -36,7 +37,7 @@ class Software
     /**
      * @throws EnvironmentException
      */
-    public static function initEnvironment(string $location = __DIR__ . '/../../.env'): void
+    public static function initEnvironment(string $location = Software::BASE_DIR . '/.env'): void
     {
         $envLoad = new Dotenv();
 
