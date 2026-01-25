@@ -20,11 +20,13 @@ $console->addCommand(
     )
 );
 
-$console->addCommand(
-    new \App\Command\Resource\AppResourceSyncCommand(
-        $container->get(\App\Service\Resource\ResourceService::class),
-    )
-);
+$console->addCommand(new \App\Command\Resource\AppResourceSyncCommand(
+    $container->get(\App\Service\Resource\ResourceService::class),
+));
+
+$console->addCommand(new \App\Command\Resource\AppResourceGetCommand(
+    $container->get(\App\Service\Resource\ResourceService::class),
+));
 
 $console->addCommand(new \App\Command\Inventory\AppInventoryAddCommand(
     $container->get(\App\Service\Economy\InventoryService::class),

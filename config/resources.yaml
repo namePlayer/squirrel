@@ -1,16 +1,36 @@
 ---
 apple:
-  gold_sell: 25
-  gold_buy: 0
+  price_sell: 25
+  price_buy: 0
+  merchant:
+    always_offer: false
+    min_offer: 1
+    max_offer: 10
 apple_sapling:
-  gold_sell: 5
-  gold_buy: 10
+  price_sell: 5
+  price_buy: 10
+  merchant:
+    always_offer: true
+    min_offer: 1
+    max_offer: 1
 cherry:
-  gold_sell: 25
-  gold_buy: 0
+  price_sell: 25
+  price_buy: 0
+  merchant:
+    always_offer: false
+    min_offer: 1
+    max_offer: 10
 cherry_sapling:
-  gold_sell: 25
-  gold_buy: 10
+  price_sell: 25
+  price_buy: 10
+  merchant:
+    always_offer: true
+    min_offer: 1
+    max_offer: 1
 wood:
-  gold_sell: 10
-  gold_buy: 0
+  price_sell: 10
+  price_buy: 0
+  merchant:
+    always_offer: false
+    min_offer: 5
+    max_offer: 25

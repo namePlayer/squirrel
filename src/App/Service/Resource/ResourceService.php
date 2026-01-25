@@ -5,6 +5,7 @@ namespace App\Service\Resource;
 use App\DTO\Resource\ResourceDTO;
 use App\DTO\Resource\ResourceSyncResultDTO;
 use App\Exception\Resource\ResourceCouldNotBeCreatedException;
+use App\Exception\Resource\ResourceDoesNotExistException;
 use App\Exception\Resource\ResourceUidAlreadyReservedException;
 use App\Model\Resource;
 use App\Software;
@@ -64,8 +65,11 @@ class ResourceService
             $this->resources[$resource] =
                 new ResourceDTO(
                     $resource,
-                    $properties['gold_buy'] ?? 0,
-                    $properties['gold_sell'] ?? 0
+                    goldBuy: $properties['gold_buy'] ?? 0,
+                    goldSell: $properties['gold_sell'] ?? 0,
+                    merchantAlwaysOffer: $properties['merchant']['always_offer'] ?? false,
+                    merchantMinOffer: $properties['merchant']['min_offer'] ?? 0,
+                    merchantMaxOffer: $properties['merchant']['max_offer'] ?? 0,
                 );
         }
 
@@ -75,6 +79,16 @@ class ResourceService
     public function getResourceByUid(string $uid): ?Resource
     {
         return $this->resourceTable->findByUid($uid);
+    }
+
+    public function getResourceDetailsByUid(string $uid): ResourceDTO
+    {
+        $resourceFromRepository = $this->getResourceByUid($uid);
+        if($resourceFromRepository === null){
+            throw new ResourceDoesNotExistException();
+        }
+
+        return $this->getResourcesFromYaml()[$uid];
     }
 
 }
