@@ -6,6 +6,7 @@ CREATE TABLE `Account` (
     `email` varchar(255) NOT NULL,
     `username` varchar(50) NOT NULL,
     `passwordHash` varchar(255) NOT NULL,
+    `money` int(11) unsigned NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `Account_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

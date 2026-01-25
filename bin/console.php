@@ -27,21 +27,29 @@ $console->addCommand(
 );
 
 $console->addCommand(new \App\Command\Inventory\AppInventoryAddCommand(
-    $container->get(\App\Service\Resource\InventoryService::class),
-    $container->get(\App\Service\Account\AccountService::class),
-    $container->get(\App\Service\Resource\ResourceService::class)
+    $container->get(\App\Service\Economy\InventoryService::class),
 ));
 
 $console->addCommand(new \App\Command\Inventory\AppInventoryTakeCommand(
-    $container->get(\App\Service\Resource\InventoryService::class),
-    $container->get(\App\Service\Account\AccountService::class),
-    $container->get(\App\Service\Resource\ResourceService::class)
+    $container->get(\App\Service\Economy\InventoryService::class),
 ));
 
 
 $console->addCommand(new \App\Command\Inventory\AppInventoryViewCommand(
-    $container->get(\App\Service\Resource\InventoryService::class),
+    $container->get(\App\Service\Economy\InventoryService::class),
     $container->get(\App\Service\Account\AccountService::class)
+));
+
+$console->addCommand(new \App\Command\Money\AppMoneyAddCommand(
+    $container->get(\App\Service\Economy\MoneyService::class),
+));
+
+$console->addCommand(new \App\Command\Money\AppMoneyTakeCommand(
+    $container->get(\App\Service\Economy\MoneyService::class),
+));
+
+$console->addCommand(new \App\Command\Money\AppMoneyViewCommand(
+    $container->get(\App\Service\Economy\MoneyService::class),
 ));
 
 $console->run();

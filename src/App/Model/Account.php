@@ -50,6 +50,14 @@ class Account
             $this->passwordHash = $value;
         }
     }
+    public int $money {
+        get {
+            return $this->money;
+        }
+        set {
+            $this->money = $value;
+        }
+    }
 
     public static function hydrate(array $data): Account
     {
@@ -59,6 +67,7 @@ class Account
         $model->email = $data['email'];
         $model->username = $data['username'];
         $model->passwordHash = $data['passwordHash'];
+        $model->money = (int)$data['money'];
         return $model;
     }
 
@@ -72,6 +81,7 @@ class Account
         $array['email'] = $this->email;
         $array['username'] = $this->username;
         $array['passwordHash'] = $this->passwordHash;
+        $array['money'] = $this->money;
         return $array;
     }
 

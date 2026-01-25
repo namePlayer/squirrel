@@ -5,6 +5,8 @@ namespace App\Service\Account;
 
 use App\DTO\Account\CreateAccountDTO;
 use App\Exception\Account\AccountCreationFailedException;
+use App\Exception\Account\AccountNotFoundException;
+use App\Exception\Account\AccountUpdateFailedException;
 use App\Exception\Account\DuplicateAccountEmailException;
 use App\Model\Account;
 use App\Table\Account\AccountTable;
@@ -39,6 +41,14 @@ class AccountService
         if($this->accountTable->insert($account) === false)
         {
             throw new AccountCreationFailedException();
+        }
+    }
+
+    public function update(Account $account): void
+    {
+        if($this->accountTable->update($account) === false)
+        {
+            throw new AccountUpdateFailedException();
         }
     }
 

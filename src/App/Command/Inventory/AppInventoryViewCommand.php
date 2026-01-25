@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace App\Command\Inventory;
 
+use App\Exception\Account\AccountNotFoundException;
+use App\Exception\Resource\ResourceDoesNotExistException;
 use App\Model\Account;
 use App\Service\Account\AccountService;
-use App\Service\Resource\InventoryService;
-use Ramsey\Uuid\Uuid;
+use App\Service\Economy\InventoryService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -48,26 +49,33 @@ class AppInventoryViewCommand extends Command
             return Command::FAILURE;
         }
 
-        $itemUid = $input->getOption('itemUid');
-        if(!empty($itemUid)) {
-            $resource = $this->inventoryService->getAccountInventoryItemAmount($accountId, $itemUid);
-            if($resource !== null) {
-                $inventory[] = $resource;
+        $resourceUid = $input->getOption('itemUid');
+        try {
+            if(!empty($resourceUid)) {
+                $resource = $this->inventoryService->getAccountInventoryItemAmount($accountId, $resourceUid);
+                if($resource !== null) {
+                    $inventory[] = $resource;
+                }
             }
-        }
 
-        if(empty($inventory)) {
-            $inventory = $this->inventoryService->getAccountInventory($accountId);
-        }
+            if(empty($inventory)) {
+                $inventory = $this->inventoryService->getAccountInventory($accountId);
+            }
 
-        foreach ($inventory as $inventoryItem) {
-            $output->writeln($inventoryItem->resource);
-            $output->writeln('=========');
-            $output->writeln('Amount: ' . $inventoryItem->quantity);
-            $output->writeln('');
-        }
+            foreach ($inventory as $inventoryItem) {
+                $output->writeln($inventoryItem->resource);
+                $output->writeln('=========');
+                $output->writeln('Amount: ' . $inventoryItem->quantity);
+                $output->writeln('');
+            }
 
-        return Command::SUCCESS;
+            return Command::SUCCESS;
+        } catch (AccountNotFoundException $e) {
+            $output->writeln('<error>Account with ID '.$accountId.' not found.</error>');
+        } catch (ResourceDoesNotExistException $e) {
+            $output->writeln('<error>Resource '.$resourceUid.' does not exist.</error>');
+        }
+        return Command::FAILURE;
     }
 
 }

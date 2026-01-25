@@ -22,8 +22,13 @@ $container->add(\App\Service\Account\PasswordService::class);
 $container->add(\App\Service\Resource\ResourceService::class)
     ->addArgument(\App\Table\Resource\ResourceTable::class);
 
-$container->add(\App\Service\Resource\InventoryService::class)
-    ->addArgument(\App\Table\Resource\AccountResourceTable::class);
+$container->add(\App\Service\Economy\InventoryService::class)
+    ->addArgument(\App\Table\Resource\AccountResourceTable::class)
+    ->addArgument(\App\Service\Account\AccountService::class)
+    ->addArgument(\App\Service\Resource\ResourceService::class);
+
+$container->add(\App\Service\Economy\MoneyService::class)
+    ->addArgument(\App\Service\Account\AccountService::class);
 
 #
 # Repositories

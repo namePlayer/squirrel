@@ -29,6 +29,25 @@ class AccountTable extends AbstractTable
         }
     }
 
+    public function update(Account $account): bool
+    {
+        $queryBuilder = new QueryBuilder($this->query);
+        $queryResult = $queryBuilder->update($this->getTableName())
+            ->where('id = :accountId')->setParameter('accountId', $account->id);
+        $index = 0;
+        foreach ($account->extract() as $column => $value) {
+            $queryResult->set($column, '?');
+            $queryResult->setParameter($index, $value);
+            $index++;
+        }
+        try {
+            $queryResult->executeQuery();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public function findById(int $id): ?Account
     {
         $queryBuilder = new QueryBuilder($this->query);
