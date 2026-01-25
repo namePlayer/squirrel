@@ -30,6 +30,10 @@ $container->add(\App\Service\Economy\InventoryService::class)
 $container->add(\App\Service\Economy\MoneyService::class)
     ->addArgument(\App\Service\Account\AccountService::class);
 
+$container->add(\Merchant\Service\MerchantOfferService::class)
+    ->addArgument(\Merchant\Table\MerchantTable::class)
+    ->addArgument(\App\Service\Resource\ResourceService::class);
+
 #
 # Repositories
 #
@@ -40,6 +44,9 @@ $container->add(\App\Table\Resource\ResourceTable::class)
     ->addArgument(\Doctrine\DBAL\Connection::class);
 
 $container->add(\App\Table\Resource\AccountResourceTable::class)
+    ->addArgument(\Doctrine\DBAL\Connection::class);
+
+$container->add(\Merchant\Table\MerchantTable::class)
     ->addArgument(\Doctrine\DBAL\Connection::class);
 
 #

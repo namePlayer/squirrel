@@ -31,3 +31,17 @@ CREATE TABLE `AccountResource` (
     CONSTRAINT `AccountResource_Account_FK` FOREIGN KEY (`account`) REFERENCES `Account` (`id`),
     CONSTRAINT `AccountResource_Resource_FK` FOREIGN KEY (`resource`) REFERENCES `Resource` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Merchant definition
+
+CREATE TABLE `Merchant` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `resource` varchar(255) NOT NULL,
+    `price` int(10) unsigned NOT NULL,
+    `amount` int(10) unsigned NOT NULL,
+    `expires` datetime NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `Merchant_Resource_FK` (`resource`),
+    CONSTRAINT `Merchant_Resource_FK` FOREIGN KEY (`resource`) REFERENCES `Resource` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

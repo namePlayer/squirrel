@@ -52,4 +52,12 @@ $console->addCommand(new \App\Command\Money\AppMoneyViewCommand(
     $container->get(\App\Service\Economy\MoneyService::class),
 ));
 
+$console->addCommand(new \Merchant\Command\MerchantOfferCreateCommand(
+    $container->get(\Merchant\Service\MerchantOfferService::class)
+));
+
+$console->addCommand(new \Merchant\Command\MerchantOfferListCommand(
+    $container->get(\Merchant\Service\MerchantOfferService::class)
+));
+
 $console->run();
