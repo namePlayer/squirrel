@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Merchant\Service;
 
 use App\Exception\Resource\ResourceDoesNotExistException;
+use App\Service\RandomService;
 use App\Service\Resource\ResourceService;
 use Merchant\DTO\CreateOfferDTO;
 use Merchant\Exception\MerchantOfferCouldNotBeCreatedException;
@@ -17,14 +18,16 @@ class MerchantOfferService
     public function __construct(
         private readonly MerchantTable $merchantTable,
         private readonly ResourceService $resourceService,
+        private readonly RandomService $randomService,
     )
     {
     }
 
     public function create(CreateOfferDTO $createOfferDTO): Merchant
     {
-        if($this->resourceService->getResourceByUid($createOfferDTO->resource) === null)
-        {
+        try {
+            $resource = $this->resourceService->getResourceDetailsByUid($createOfferDTO->resource);
+        } catch (ResourceDoesNotExistException $e) {
             throw new ResourceDoesNotExistException();
         }
 
@@ -32,10 +35,25 @@ class MerchantOfferService
         do {
             $merchant->slug = Uuid::uuid4();
         } while($this->getOfferBySlug($merchant->slug->toString()) instanceof Merchant);
+
+        $quantity = $createOfferDTO->quantity;
+        if($quantity === null)
+        {
+            $quantity = $this->randomService->generateRandomIntegerInRange(
+                $resource->merchantMinOffer, $resource->merchantMaxOffer);
+        }
+        $merchant->quantity = $quantity;
+
+        $price = $createOfferDTO->price;
+        if($price === null)
+        {
+            $price = $resource->priceBuy * $quantity;
+        }
+        $merchant->price = $price;
+
         $merchant->resource = $createOfferDTO->resource;
-        $merchant->price = $createOfferDTO->price;
-        $merchant->quantity = $createOfferDTO->quantity;
         $merchant->expires = $createOfferDTO->expires;
+
         if($this->merchantTable->insert($merchant))
         {
             return $this->getOfferBySlug($merchant->slug->toString());

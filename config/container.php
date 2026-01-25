@@ -32,7 +32,10 @@ $container->add(\App\Service\Economy\MoneyService::class)
 
 $container->add(\Merchant\Service\MerchantOfferService::class)
     ->addArgument(\Merchant\Table\MerchantTable::class)
-    ->addArgument(\App\Service\Resource\ResourceService::class);
+    ->addArgument(\App\Service\Resource\ResourceService::class)
+    ->addArgument(\App\Service\RandomService::class);
+
+$container->add(\App\Service\RandomService::class);
 
 #
 # Repositories

@@ -31,28 +31,29 @@ class MerchantOfferCreateCommand extends Command
     {
         $this->addArgument('resourceUid', InputArgument::REQUIRED);
         $this->addArgument('expires', InputArgument::REQUIRED, 'Relative time to offer expiration');
-        $this->addArgument('quantity', InputArgument::REQUIRED);
-        $this->addArgument('price', InputArgument::REQUIRED);
+        $this->addArgument('quantity', InputArgument::OPTIONAL);
+        $this->addArgument('price', InputArgument::OPTIONAL);
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $price = $input->getArgument('price');
-        if(!is_numeric($price) || $price < 1) {
-            $output->writeln(sprintf('<error>Price must be numeric and greater than 0.</error>'));
+        $quantity = $input->getArgument('quantity');
+        if(!empty($quantity) && (!is_numeric($quantity) || $quantity < 1)) {
+            $output->writeln(sprintf('<error>Quantity must be numeric and greater than 0.</error>'));
             return Command::FAILURE;
         }
-        $quantity = $input->getArgument('quantity');
-        if(!is_numeric($quantity) || $quantity < 1) {
-            $output->writeln(sprintf('<error>Quantity must be numeric and greater than 0.</error>'));
+
+        $price = $input->getArgument('price');
+        if(!empty($price) && (!is_numeric($price) || $price < 1)) {
+            $output->writeln(sprintf('<error>Price must be numeric and greater than 0.</error>'));
             return Command::FAILURE;
         }
 
         $createOfferDTO = new CreateOfferDTO(
             $input->getArgument('resourceUid'),
-            (int)$price,
-            (int)$quantity,
-            new \DateTime('now')->modify('+'.$input->getArgument('expires'))
+            new \DateTime('now')->modify('+'.$input->getArgument('expires')),
+            empty($quantity) ? null : (int) $quantity,
+            empty($price) ? null : (int) $price
         );
 
         try {

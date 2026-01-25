@@ -65,14 +65,13 @@ class ResourceService
             $this->resources[$resource] =
                 new ResourceDTO(
                     $resource,
-                    goldBuy: $properties['gold_buy'] ?? 0,
-                    goldSell: $properties['gold_sell'] ?? 0,
+                    priceBuy: $properties['price_buy'] ?? 0,
+                    priceSell: $properties['price_sell'] ?? 0,
                     merchantAlwaysOffer: $properties['merchant']['always_offer'] ?? false,
                     merchantMinOffer: $properties['merchant']['min_offer'] ?? 0,
                     merchantMaxOffer: $properties['merchant']['max_offer'] ?? 0,
                 );
         }
-
         return $this->resources;
     }
 
