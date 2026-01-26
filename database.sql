@@ -38,6 +38,7 @@ CREATE TABLE `AccountResource` (
 CREATE TABLE `Merchant` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `resource` varchar(255) NOT NULL,
+    `slug` varchar(100) NOT NULL,
     `price` int(10) unsigned NOT NULL,
     `amount` int(10) unsigned NOT NULL,
     `expires` datetime NOT NULL,

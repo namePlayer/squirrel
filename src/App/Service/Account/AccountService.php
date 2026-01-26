@@ -9,6 +9,7 @@ use App\Exception\Account\AccountNotFoundException;
 use App\Exception\Account\AccountUpdateFailedException;
 use App\Exception\Account\DuplicateAccountEmailException;
 use App\Model\Account;
+use App\Software;
 use App\Table\Account\AccountTable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -37,7 +38,8 @@ class AccountService
         $account->username = $accountDTO->username;
         $account->email = $accountDTO->email;
         $account->passwordHash = $this->passwordService->hashPassword($accountDTO->password);
-
+        $account->money = Software::NEW_ACCOUNT_BASE_MONEY;
+        
         if($this->accountTable->insert($account) === false)
         {
             throw new AccountCreationFailedException();

@@ -33,6 +33,7 @@ class Software
     public const int MIN_USERNAME_LENGTH = 5;
     public const int MAX_USERNAME_LENGTH = 50;
     public const int MAX_RESOURCE_UID_LENGTH = 255;
+    public const int NEW_ACCOUNT_BASE_MONEY = 0;
 
     /**
      * @throws EnvironmentException
