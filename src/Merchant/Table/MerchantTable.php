@@ -63,4 +63,23 @@ class MerchantTable extends AbstractTable
         return null;
     }
 
+    public function findById(int $id): ?Merchant
+    {
+        $queryBuilder = new QueryBuilder($this->query);
+        $queryResult = $queryBuilder->select('*')
+            ->from($this->getTableName())
+            ->where('id = :id')
+            ->setParameter('id', $id);
+
+        try {
+            $result = $queryResult->fetchAssociative();
+            if(false !== $result)
+            {
+                return Merchant::hydrate($result);
+            }
+        } catch (Exception $e) {
+        }
+        return null;
+    }
+
 }

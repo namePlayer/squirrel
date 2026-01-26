@@ -72,4 +72,9 @@ class MerchantOfferService
         return $this->merchantTable->findBySlug($slug);
     }
 
+    public function getOfferById(int $offerId): ?Merchant
+    {
+        return $this->merchantTable->findById($offerId);
+    }
+
 }
