@@ -39,9 +39,12 @@ class AppResourceGetCommand extends Command
             $output->writeln('<info>---------</info>');
             $output->writeln('<info>Price Buy: '.$resource->priceBuy.'</info>');
             $output->writeln('<info>Price Sell: '.$resource->priceSell.'</info>');
-            $output->writeln('<info>Always offered by the merchant: '.($resource->merchantKeepInStockGroup ? 'true' : 'false').'</info>');
             $output->writeln('<info>Minimum merchant offer: '.$resource->merchantMinOffer.'</info>');
             $output->writeln('<info>Maximum merchant offer: '.$resource->merchantMaxOffer.'</info>');
+            $output->writeln('<info>Item is added to the following groups:</info>');
+            foreach ($resource->itemGroups as $itemGroup) {
+                $output->writeln('<info>* '.$itemGroup->name.'</info>');
+            }
             return Command::SUCCESS;
         } catch (ResourceDoesNotExistException $e) {
             $output->writeln('<error>Resource '.$resourceUid.' not found.</error>');

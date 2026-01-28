@@ -82,9 +82,6 @@ class ResourceService
                     merchantMaxOffer: $properties['merchant']['max_offer'] ?? 0,
                 );
         }
-
-        var_dump($this->resources);
-
         return $this->resources;
     }
 
