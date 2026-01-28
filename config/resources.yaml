@@ -2,35 +2,42 @@
 apple:
   price_sell: 10
   price_buy: 25
+  item_groups:
+    - obtainable
+    - fruit
   merchant:
-    always_offer: false
     min_offer: 1
     max_offer: 10
 apple_sapling:
   price_sell: 5
   price_buy: 20
+  item_groups:
+    - fruit_tree_sapling
   merchant:
-    always_offer: true
     min_offer: 1
     max_offer: 1
 cherry:
   price_sell: 10
   price_buy: 25
+  item_groups:
+    - fruit
+    - obtainable
   merchant:
-    always_offer: false
     min_offer: 1
     max_offer: 10
 cherry_sapling:
   price_sell: 5
   price_buy: 25
+  item_groups:
+    - fruit_tree_sapling
   merchant:
-    always_offer: true
     min_offer: 1
     max_offer: 1
 wood:
   price_sell: 5
   price_buy: 25
+  item_groups:
+    - raw_material
   merchant:
-    always_offer: false
     min_offer: 5
     max_offer: 25

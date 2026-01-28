@@ -58,6 +58,10 @@ $console->addCommand(new \Merchant\Command\MerchantOfferCreateCommand(
     $container->get(\Merchant\Service\MerchantOfferService::class)
 ));
 
+$console->addCommand(new \Merchant\Command\MerchantOfferGenerateCommand(
+    $container->get(\Merchant\Service\MerchantOfferService::class)
+));
+
 $console->addCommand(new \Merchant\Command\MerchantOfferListCommand(
     $container->get(\Merchant\Service\MerchantOfferService::class)
 ));

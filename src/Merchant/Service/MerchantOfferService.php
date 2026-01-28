@@ -61,6 +61,11 @@ class MerchantOfferService
         throw new MerchantOfferCouldNotBeCreatedException();
     }
 
+    public function generateMerchantOffers(int $amount)
+    {
+        $resources = $this->resourceService->getResourcesFromYaml();
+    }
+
     public function getAllCurrentOffers(): array
     {
         $currentTime = new \DateTime();

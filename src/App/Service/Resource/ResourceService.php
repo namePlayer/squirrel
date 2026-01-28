@@ -4,6 +4,7 @@ namespace App\Service\Resource;
 
 use App\DTO\Resource\ResourceDTO;
 use App\DTO\Resource\ResourceSyncResultDTO;
+use App\Enum\Resource\ItemGroupEnum;
 use App\Exception\Resource\ResourceCouldNotBeCreatedException;
 use App\Exception\Resource\ResourceDoesNotExistException;
 use App\Exception\Resource\ResourceUidAlreadyReservedException;
@@ -62,16 +63,28 @@ class ResourceService
         }
 
         foreach (Yaml::parseFile($path) as $resource => $properties) {
+            $itemGroups = [];
+            foreach ($properties['item_groups'] ?? 0 as $group) {
+                $itemGroup = ItemGroupEnum::tryFrom($group);
+                if($itemGroup instanceof ItemGroupEnum)
+                {
+                    $itemGroups[] = $itemGroup;
+                }
+            }
+
             $this->resources[$resource] =
                 new ResourceDTO(
                     $resource,
                     priceBuy: $properties['price_buy'] ?? 0,
                     priceSell: $properties['price_sell'] ?? 0,
-                    merchantAlwaysOffer: $properties['merchant']['always_offer'] ?? false,
+                    itemGroups: $itemGroups,
                     merchantMinOffer: $properties['merchant']['min_offer'] ?? 0,
                     merchantMaxOffer: $properties['merchant']['max_offer'] ?? 0,
                 );
         }
+
+        var_dump($this->resources);
+
         return $this->resources;
     }
 

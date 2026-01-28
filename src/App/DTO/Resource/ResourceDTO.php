@@ -9,7 +9,8 @@ class ResourceDTO
         public readonly string $uid,
         public int             $priceBuy = 0,
         public int             $priceSell = 0,
-        public bool            $merchantAlwaysOffer = false,
+        public array           $itemGroups = [],
+        public bool            $merchantKeepInStockGroup = false,
         public int             $merchantMinOffer = 0,
         public int             $merchantMaxOffer = 0
     )

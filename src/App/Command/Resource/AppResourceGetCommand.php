@@ -39,7 +39,7 @@ class AppResourceGetCommand extends Command
             $output->writeln('<info>---------</info>');
             $output->writeln('<info>Price Buy: '.$resource->priceBuy.'</info>');
             $output->writeln('<info>Price Sell: '.$resource->priceSell.'</info>');
-            $output->writeln('<info>Always offered by the merchant: '.($resource->merchantAlwaysOffer ? 'true' : 'false').'</info>');
+            $output->writeln('<info>Always offered by the merchant: '.($resource->merchantKeepInStockGroup ? 'true' : 'false').'</info>');
             $output->writeln('<info>Minimum merchant offer: '.$resource->merchantMinOffer.'</info>');
             $output->writeln('<info>Maximum merchant offer: '.$resource->merchantMaxOffer.'</info>');
             return Command::SUCCESS;
