@@ -41,13 +41,12 @@ CREATE TABLE `Merchant` (
     `slug` varchar(100) NOT NULL,
     `price` int(10) unsigned NOT NULL,
     `quantity` int(10) unsigned NOT NULL,
-    `playerLimit` int(11) NOT NULL,
     `expires` datetime NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `Merchant_UNIQUE` (`slug`),
     KEY `Merchant_Resource_FK` (`resource`),
     CONSTRAINT `Merchant_Resource_FK` FOREIGN KEY (`resource`) REFERENCES `Resource` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- MerchantAccountBought definition
 
@@ -58,5 +57,5 @@ CREATE TABLE `MerchantAccountBought` (
     PRIMARY KEY (`merchant`,`account`),
     KEY `AccountMerchantBought_Account_FK` (`account`),
     CONSTRAINT `AccountMerchantBought_Account_FK` FOREIGN KEY (`account`) REFERENCES `Account` (`id`),
-    CONSTRAINT `AccountMerchantBought_Merchant_FK` FOREIGN KEY (`merchant`) REFERENCES `Merchant` (`id`)
+    CONSTRAINT `MerchantAccountBought_Merchant_FK` FOREIGN KEY (`merchant`) REFERENCES `Merchant` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
