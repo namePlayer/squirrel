@@ -64,11 +64,15 @@ $console->addCommand(new \Merchant\Command\MerchantOfferGenerateCommand(
 
 $console->addCommand(new \Merchant\Command\MerchantOfferListCommand(
     $container->get(\Merchant\Service\MerchantOfferService::class),
-    $container->get(\Merchant\Service\MerchantBuyService::class)
+    $container->get(\Merchant\Service\MerchantTransactionService::class)
 ));
 
 $console->addCommand(new \Merchant\Command\MerchantOfferBuyCommand(
-    $container->get(\Merchant\Service\MerchantBuyService::class)
+    $container->get(\Merchant\Service\MerchantTransactionService::class)
+));
+
+$console->addCommand(new \Merchant\Command\MerchantSellCommand(
+    $container->get(\Merchant\Service\MerchantTransactionService::class)
 ));
 
 $console->run();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Merchant\Command;
 
 use Merchant\Model\Merchant;
-use Merchant\Service\MerchantBuyService;
+use Merchant\Service\MerchantTransactionService;
 use Merchant\Service\MerchantOfferService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -20,8 +20,8 @@ class MerchantOfferListCommand extends Command
 {
 
     public function __construct(
-        private readonly MerchantOfferService $merchantOfferService,
-        private readonly MerchantBuyService $merchantBuyService,
+        private readonly MerchantOfferService       $merchantOfferService,
+        private readonly MerchantTransactionService $merchantBuyService,
     )
     {
         parent::__construct();

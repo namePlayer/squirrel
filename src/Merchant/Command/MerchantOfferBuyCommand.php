@@ -14,7 +14,7 @@ use Merchant\Exception\MerchantAccountWouldExceedOfferLimitException;
 use Merchant\Exception\MerchantInvalidOfferException;
 use Merchant\Exception\MerchantOfferBuyQuantityCanNotBeZeroOrLessException;
 use Merchant\Exception\MerchantOfferCouldNotBeFoundException;
-use Merchant\Service\MerchantBuyService;
+use Merchant\Service\MerchantTransactionService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,7 +29,7 @@ class MerchantOfferBuyCommand extends Command
 {
 
     public function __construct(
-        private readonly MerchantBuyService $merchantTransactionService,
+        private readonly MerchantTransactionService $merchantTransactionService,
     )
     {
         parent::__construct();

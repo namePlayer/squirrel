@@ -5,8 +5,12 @@ namespace Merchant\Service;
 
 use App\Exception\Account\AccountNotFoundException;
 use App\Exception\Account\MoneyCanNotBeLessThanZeroException;
+use App\Exception\Account\MoneyCouldNotBeDepositedToAccountException;
 use App\Exception\Account\MoneyCouldNotBeWithdrawnFromAccountException;
+use App\Exception\Inventory\AccountResourceAmountCantBeLessThanZeroException;
+use App\Exception\Inventory\AccountResourceIsNotInInventoryException;
 use App\Exception\Inventory\ResourceCouldNotBeAddedToInventoryException;
+use App\Exception\Inventory\ResourceCouldNotBeTakenFromInventoryException;
 use App\Exception\Resource\ResourceDoesNotExistException;
 use App\Service\Account\AccountService;
 use App\Service\Economy\InventoryService;
@@ -21,7 +25,7 @@ use Merchant\Exception\MerchantOfferCouldNotBeFoundException;
 use Merchant\Model\MerchantAccountBought;
 use Merchant\Table\MerchantAccountBoughtTable;
 
-class MerchantBuyService
+class MerchantTransactionService
 {
 
     public function __construct(
@@ -116,6 +120,43 @@ class MerchantBuyService
         if(false === $this->merchantAccountBoughtTable->update($offerHistory))
         {
             throw new MerchantAccountOfferBoughtCouldNotBeTrackedException();
+        }
+    }
+
+    public function sellFromInventory(int $accountId, string $resourceUid, int $quantity = 1): void
+    {
+        try {
+            $inventoryItem = $this->inventoryService->getAccountInventoryItemAmount($accountId, $resourceUid);
+        } catch (AccountNotFoundException|ResourceDoesNotExistException $e) {
+            throw $e;
+        }
+
+        if($inventoryItem === null)
+        {
+            throw new AccountResourceIsNotInInventoryException();
+        }
+
+        try {
+            $resource = $this->resourceService->getResourceDetailsByUid($inventoryItem->resource);
+        } catch (ResourceDoesNotExistException $e) {
+            throw $e;
+        }
+
+        $inventoryItem->quantity -= $quantity;
+        if($inventoryItem->quantity < 0)
+        {
+            throw new AccountResourceAmountCantBeLessThanZeroException();
+        }
+
+        $payoutAmount = $resource->priceSell * $quantity;
+
+        try {
+            $this->inventoryService->takeFromInventory($accountId, $resourceUid, $quantity);
+            $this->moneyService->depositMoneyToAccount($accountId, $payoutAmount);
+        } catch (AccountNotFoundException|AccountResourceAmountCantBeLessThanZeroException
+            |AccountResourceIsNotInInventoryException|ResourceCouldNotBeTakenFromInventoryException
+            |ResourceDoesNotExistException|MoneyCouldNotBeDepositedToAccountException $e) {
+            throw $e;
         }
     }
 

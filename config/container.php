@@ -35,7 +35,7 @@ $container->add(\Merchant\Service\MerchantOfferService::class)
     ->addArgument(\App\Service\Resource\ResourceService::class)
     ->addArgument(\App\Service\RandomService::class);
 
-$container->add(\Merchant\Service\MerchantBuyService::class)
+$container->add(\Merchant\Service\MerchantTransactionService::class)
     ->addArgument(\Merchant\Service\MerchantOfferService::class)
     ->addArgument(\App\Service\Economy\MoneyService::class)
     ->addArgument(\App\Service\Economy\InventoryService::class)
