@@ -39,6 +39,7 @@ oak_tree_sapling:
   item_groups:
     - tree_sapling
   merchant:
+    offer_probability: 0.75
     min_offer: 1
     max_offer: 1
 pine_tree_sapling:
@@ -47,6 +48,7 @@ pine_tree_sapling:
   item_groups:
     - tree_sapling
   merchant:
+    offer_probability: 0.75
     min_offer: 1
     max_offer: 1
 hard_wood:
@@ -55,6 +57,7 @@ hard_wood:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.7
     min_offer: 5
     max_offer: 25
 wood:
@@ -71,6 +74,7 @@ soft_wood:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.7
     min_offer: 5
     max_offer: 25
 stone:
@@ -87,6 +91,7 @@ coal:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.65
     min_offer: 1
     max_offer: 10
 charcoal:
@@ -95,6 +100,7 @@ charcoal:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.65
     min_offer: 1
     max_offer: 2
 iron_ore:
@@ -103,6 +109,7 @@ iron_ore:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.5
     min_offer: 1
     max_offer: 5
 iron_ingot:
@@ -111,6 +118,7 @@ iron_ingot:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.3
     min_offer: 1
     max_offer: 5
 gold_ore:
@@ -119,6 +127,7 @@ gold_ore:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.3
     min_offer: 1
     max_offer: 5
 gold_ingot:
@@ -127,5 +136,6 @@ gold_ingot:
   item_groups:
     - material
   merchant:
+    offer_probability: 0.22
     min_offer: 1
     max_offer: 5

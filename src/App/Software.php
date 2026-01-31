@@ -34,6 +34,8 @@ class Software
     public const int MAX_USERNAME_LENGTH = 50;
     public const int MAX_RESOURCE_UID_LENGTH = 255;
     public const int NEW_ACCOUNT_BASE_MONEY = 0;
+    public const int DEFAULT_MERCHANT_OFFER_AMOUNT = 6;
+    public const string DEFAULT_MERCHANT_OFFER_LIFETIME = "6hours";
 
     /**
      * @throws EnvironmentException

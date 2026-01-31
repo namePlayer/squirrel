@@ -3,9 +3,12 @@ declare(strict_types=1);
 
 namespace Merchant\Service;
 
+use App\DTO\Resource\ResourceDTO;
+use App\Enum\Resource\ItemGroupEnum;
 use App\Exception\Resource\ResourceDoesNotExistException;
 use App\Service\RandomService;
 use App\Service\Resource\ResourceService;
+use App\Software;
 use Merchant\DTO\CreateOfferDTO;
 use Merchant\Exception\MerchantOfferCouldNotBeCreatedException;
 use Merchant\Model\Merchant;
@@ -61,9 +64,55 @@ class MerchantOfferService
         throw new MerchantOfferCouldNotBeCreatedException();
     }
 
-    public function generateMerchantOffers(int $amount)
+    public function generateMerchantOffers(int $amount): array
     {
         $resources = $this->resourceService->getResourcesFromYaml();
+        $resourceOfferChances = [];
+        $offers = [];
+        foreach ($resources as $properties)
+        {
+            /* @var ResourceDTO $properties */
+            if(($properties->merchantOfferProbability <= 0) ||
+                ($properties->merchantMinOffer <= 0) ||
+                ($properties->merchantMaxOffer <= 0) ||
+                (in_array(ItemGroupEnum::NotOfferedByMerchant, $properties->itemGroups)))
+            {
+                continue;
+            }
+
+            $offerChance = floor($this->randomService->generateRandomIntegerInRange(0, 100) * $properties->merchantOfferProbability);
+            while(isset($resources[$offerChance]))
+            {
+                $offerChance -= 1;
+            }
+            $resourceOfferChances[$offerChance] = $properties;
+        }
+
+        krsort($resourceOfferChances);
+        $counter = 0;
+        foreach ($resourceOfferChances as $offerChance => $properties)
+        {
+            if($counter >= $amount)
+            {
+                break;
+            }
+
+            $offers[$properties->uid] = $properties;
+            unset($resourceOfferChances[$offerChance]);
+
+            $offer = new CreateOfferDTO(
+                $properties->uid,
+                new \DateTime()->modify('+'.Software::DEFAULT_MERCHANT_OFFER_LIFETIME),
+                null,
+                null
+            );
+            try {
+                $this->create($offer);
+            } catch (ResourceDoesNotExistException|MerchantOfferCouldNotBeCreatedException $e) {}
+            $counter++;
+        }
+
+        return $offers;
     }
 
     public function getAllCurrentOffers(): array

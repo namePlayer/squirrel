@@ -78,6 +78,7 @@ class ResourceService
                     priceBuy: $properties['price_buy'] ?? 0,
                     priceSell: $properties['price_sell'] ?? 0,
                     itemGroups: $itemGroups,
+                    merchantOfferProbability: $properties['merchant']['offer_probability'] ?? 1.0,
                     merchantMinOffer: $properties['merchant']['min_offer'] ?? 0,
                     merchantMaxOffer: $properties['merchant']['max_offer'] ?? 0,
                 );
