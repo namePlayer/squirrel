@@ -41,6 +41,7 @@ CREATE TABLE `Merchant` (
     `slug` varchar(100) NOT NULL,
     `price` int(10) unsigned NOT NULL,
     `quantity` int(10) unsigned NOT NULL,
+    `playerLimit` int(11) NOT NULL,
     `expires` datetime NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `Merchant_UNIQUE` (`slug`),

@@ -100,7 +100,7 @@ class MerchantBuyService
             throw new ResourceDoesNotExistException();
         }
 
-        if($offerHistory->quantity > $resource->merchantLimitPerPlayer)
+        if($offerHistory->quantity > $offer->playerLimit)
         {
             throw new MerchantAccountWouldExceedOfferLimitException();
         }

@@ -46,6 +46,7 @@ class MerchantOfferService
                 $resource->merchantMinOffer, $resource->merchantMaxOffer);
         }
         $merchant->quantity = $quantity;
+        $merchant->playerLimit = $resource->merchantLimitPerPlayer;
 
         $price = $createOfferDTO->price;
         if($price === null)

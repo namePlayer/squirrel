@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Merchant\Command;
 
-use App\Exception\Resource\ResourceDoesNotExistException;
-use Merchant\DTO\CreateOfferDTO;
-use Merchant\Exception\MerchantOfferCouldNotBeCreatedException;
 use Merchant\Model\Merchant;
+use Merchant\Service\MerchantBuyService;
 use Merchant\Service\MerchantOfferService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -23,9 +21,15 @@ class MerchantOfferListCommand extends Command
 
     public function __construct(
         private readonly MerchantOfferService $merchantOfferService,
+        private readonly MerchantBuyService $merchantBuyService,
     )
     {
         parent::__construct();
+    }
+
+    public function configure()
+    {
+        $this->addArgument('forPlayer', InputArgument::OPTIONAL, 'For which player the offers should be displayed');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -43,6 +47,16 @@ class MerchantOfferListCommand extends Command
             $output->writeln('Resource: ' . $offer->resource);
             $output->writeln('Quantity: ' . $offer->quantity);
             $output->writeln('Price: ' . $offer->price);
+            $output->writeln('Maximum per Player: ' . $offer->playerLimit);
+            $forPlayer = $input->getArgument('forPlayer');
+            if(!empty($forPlayer)) {
+                $amountBought = 0;
+                $alreadyBought = $this->merchantBuyService->getOfferBoughtByAccount($offerId, (int)$forPlayer);
+                if(!empty($alreadyBought)) {
+                    $amountBought = $alreadyBought->quantity;
+                }
+                $output->writeln('Already bought by player: ' . $amountBought);
+            }
             $output->writeln('The offer expires at ' . $offer->expires->format(\DateTime::RFC850));
             $output->writeln('');
         }
