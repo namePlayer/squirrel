@@ -8,14 +8,6 @@ apple:
   merchant:
     min_offer: 1
     max_offer: 10
-apple_sapling:
-  price_sell: 5
-  price_buy: 20
-  item_groups:
-    - fruit_tree_sapling
-  merchant:
-    min_offer: 1
-    max_offer: 1
 cherry:
   price_sell: 10
   price_buy: 25
@@ -33,11 +25,107 @@ cherry_sapling:
   merchant:
     min_offer: 1
     max_offer: 1
+apple_sapling:
+  price_sell: 5
+  price_buy: 20
+  item_groups:
+    - fruit_tree_sapling
+  merchant:
+    min_offer: 1
+    max_offer: 1
+oak_tree_sapling:
+  price_sell: 5
+  price_buy: 25
+  item_groups:
+    - tree_sapling
+  merchant:
+    min_offer: 1
+    max_offer: 1
+pine_tree_sapling:
+  price_sell: 5
+  price_buy: 25
+  item_groups:
+    - tree_sapling
+  merchant:
+    min_offer: 1
+    max_offer: 1
+hard_wood:
+  price_sell: 5
+  price_buy: 30
+  item_groups:
+    - material
+  merchant:
+    min_offer: 5
+    max_offer: 25
 wood:
   price_sell: 5
   price_buy: 25
   item_groups:
-    - raw_material
+    - material
   merchant:
     min_offer: 5
     max_offer: 25
+soft_wood:
+  price_sell: 5
+  price_buy: 30
+  item_groups:
+    - material
+  merchant:
+    min_offer: 5
+    max_offer: 25
+stone:
+  price_sell: 15
+  price_buy: 50
+  item_groups:
+    - material
+  merchant:
+    min_offer: 2
+    max_offer: 30
+coal:
+  price_sell: 25
+  price_buy: 75
+  item_groups:
+    - material
+  merchant:
+    min_offer: 1
+    max_offer: 10
+charcoal:
+  price_sell: 20
+  price_buy: 70
+  item_groups:
+    - material
+  merchant:
+    min_offer: 1
+    max_offer: 2
+iron_ore:
+  price_sell: 35
+  price_buy: 100
+  item_groups:
+    - material
+  merchant:
+    min_offer: 1
+    max_offer: 5
+iron_ingot:
+  price_sell: 90
+  price_buy: 250
+  item_groups:
+    - material
+  merchant:
+    min_offer: 1
+    max_offer: 5
+gold_ore:
+  price_sell: 50
+  price_buy: 200
+  item_groups:
+    - material
+  merchant:
+    min_offer: 1
+    max_offer: 5
+gold_ingot:
+  price_sell: 120
+  price_buy: 350
+  item_groups:
+    - material
+  merchant:
+    min_offer: 1
+    max_offer: 5

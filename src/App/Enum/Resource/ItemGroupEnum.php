@@ -5,10 +5,13 @@ namespace App\Enum\Resource;
 
 enum ItemGroupEnum: string
 {
+    case Foraging = 'foraging';
+    case Farming = 'farming';
     case Obtainable = 'obtainable';
-    case RawMaterial = 'raw_material';
     case Craftable = 'craftable';
+    case Material = 'material';
     case Fruit = 'fruit';
+    case TreeSapling = 'tree_sapling';
     case FruitTreeSapling = 'fruit_tree_sapling';
 
 }
