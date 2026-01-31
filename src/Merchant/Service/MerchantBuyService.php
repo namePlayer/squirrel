@@ -5,7 +5,6 @@ namespace Merchant\Service;
 
 use App\Exception\Account\AccountNotFoundException;
 use App\Exception\Account\MoneyCanNotBeLessThanZeroException;
-use App\Exception\Account\MoneyCouldNotBeDepositedToAccountException;
 use App\Exception\Account\MoneyCouldNotBeWithdrawnFromAccountException;
 use App\Exception\Inventory\ResourceCouldNotBeAddedToInventoryException;
 use App\Exception\Resource\ResourceDoesNotExistException;
@@ -79,7 +78,7 @@ class MerchantBuyService
     public function registerBoughtFromMerchant(BuyOfferDTO $buyOfferDTO): void
     {
         $create = false;
-        $offerHistory = $this->getOfferBoughtByAccount($buyOfferDTO->offerId, $buyOfferDTO->accountId,);
+        $offerHistory = $this->getOfferBoughtByAccount($buyOfferDTO->offerId, $buyOfferDTO->accountId);
         if($offerHistory === null){
             $create = true;
             $offerHistory = new MerchantAccountBought();
@@ -100,7 +99,7 @@ class MerchantBuyService
             throw new ResourceDoesNotExistException();
         }
 
-        if($offerHistory->quantity > $offer->playerLimit)
+        if($offerHistory->quantity > $offer->quantity)
         {
             throw new MerchantAccountWouldExceedOfferLimitException();
         }

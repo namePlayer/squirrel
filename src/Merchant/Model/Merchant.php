@@ -49,14 +49,6 @@ class Merchant
             $this->quantity = $value;
         }
     }
-    public int $playerLimit {
-        get {
-            return $this->playerLimit;
-        }
-        set {
-            $this->playerLimit = $value;
-        }
-    }
     public \DateTime $expires {
         get {
             return $this->expires;
@@ -74,7 +66,6 @@ class Merchant
         $self->slug = Uuid::fromString($data['slug']);
         $self->price = $data['price'];
         $self->quantity = $data['quantity'];
-        $self->playerLimit = $data['playerLimit'];
         $self->expires = new \DateTime($data['expires']);
         return $self;
     }
@@ -88,7 +79,6 @@ class Merchant
         $self['slug'] = $this->slug->toString();
         $self['price'] = $this->price;
         $self['quantity'] = $this->quantity;
-        $self['playerLimit'] = $this->playerLimit;
         $self['expires'] = $this->expires->format('Y-m-d H:i:s');
         return $self;
     }

@@ -47,7 +47,6 @@ class MerchantOfferListCommand extends Command
             $output->writeln('Resource: ' . $offer->resource);
             $output->writeln('Quantity: ' . $offer->quantity);
             $output->writeln('Price: ' . $offer->price);
-            $output->writeln('Maximum per Player: ' . $offer->playerLimit);
             $forPlayer = $input->getArgument('forPlayer');
             if(!empty($forPlayer)) {
                 $amountBought = 0;
