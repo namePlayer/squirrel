@@ -81,6 +81,7 @@ class ResourceService
                     merchantOfferProbability: $properties['merchant']['offer_probability'] ?? 1.0,
                     merchantMinOffer: $properties['merchant']['min_offer'] ?? 0,
                     merchantMaxOffer: $properties['merchant']['max_offer'] ?? 0,
+                    merchantLimitPerPlayer: $properties['merchant']['limit_per_player'] ?? 1,
                 );
         }
         return $this->resources;

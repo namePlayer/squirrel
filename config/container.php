@@ -35,12 +35,13 @@ $container->add(\Merchant\Service\MerchantOfferService::class)
     ->addArgument(\App\Service\Resource\ResourceService::class)
     ->addArgument(\App\Service\RandomService::class);
 
-$container->add(\Merchant\Service\MerchantTransactionService::class)
+$container->add(\Merchant\Service\MerchantBuyService::class)
     ->addArgument(\Merchant\Service\MerchantOfferService::class)
     ->addArgument(\App\Service\Economy\MoneyService::class)
     ->addArgument(\App\Service\Economy\InventoryService::class)
     ->addArgument(\App\Service\Resource\ResourceService::class)
-    ->addArgument(\App\Service\Account\AccountService::class);
+    ->addArgument(\App\Service\Account\AccountService::class)
+    ->addArgument(\Merchant\Table\MerchantAccountBoughtTable::class);
 
 $container->add(\App\Service\RandomService::class);
 
@@ -57,6 +58,9 @@ $container->add(\App\Table\Resource\AccountResourceTable::class)
     ->addArgument(\Doctrine\DBAL\Connection::class);
 
 $container->add(\Merchant\Table\MerchantTable::class)
+    ->addArgument(\Doctrine\DBAL\Connection::class);
+
+$container->add(\Merchant\Table\MerchantAccountBoughtTable::class)
     ->addArgument(\Doctrine\DBAL\Connection::class);
 
 #

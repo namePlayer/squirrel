@@ -40,9 +40,22 @@ CREATE TABLE `Merchant` (
     `resource` varchar(255) NOT NULL,
     `slug` varchar(100) NOT NULL,
     `price` int(10) unsigned NOT NULL,
-    `amount` int(10) unsigned NOT NULL,
+    `quantity` int(10) unsigned NOT NULL,
     `expires` datetime NOT NULL,
     PRIMARY KEY (`id`),
+    UNIQUE KEY `Merchant_UNIQUE` (`slug`),
     KEY `Merchant_Resource_FK` (`resource`),
     CONSTRAINT `Merchant_Resource_FK` FOREIGN KEY (`resource`) REFERENCES `Resource` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- MerchantAccountBought definition
+
+CREATE TABLE `MerchantAccountBought` (
+    `merchant` int(10) unsigned NOT NULL,
+    `account` int(11) NOT NULL,
+    `quantity` int(11) NOT NULL,
+    PRIMARY KEY (`merchant`,`account`),
+    KEY `AccountMerchantBought_Account_FK` (`account`),
+    CONSTRAINT `AccountMerchantBought_Account_FK` FOREIGN KEY (`account`) REFERENCES `Account` (`id`),
+    CONSTRAINT `AccountMerchantBought_Merchant_FK` FOREIGN KEY (`merchant`) REFERENCES `Merchant` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

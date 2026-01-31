@@ -67,7 +67,7 @@ $console->addCommand(new \Merchant\Command\MerchantOfferListCommand(
 ));
 
 $console->addCommand(new \Merchant\Command\MerchantOfferBuyCommand(
-    $container->get(\Merchant\Service\MerchantTransactionService::class)
+    $container->get(\Merchant\Service\MerchantBuyService::class)
 ));
 
 $console->run();

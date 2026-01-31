@@ -13,7 +13,8 @@ class ResourceDTO
         public bool            $merchantKeepInStockGroup = false,
         public float           $merchantOfferProbability = 1.0,
         public int             $merchantMinOffer = 0,
-        public int             $merchantMaxOffer = 0
+        public int             $merchantMaxOffer = 0,
+        public int             $merchantLimitPerPlayer = 1
     )
     {
     }

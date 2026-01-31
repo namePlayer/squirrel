@@ -9,10 +9,12 @@ use App\Exception\Account\MoneyCouldNotBeWithdrawnFromAccountException;
 use App\Exception\Inventory\ResourceCouldNotBeAddedToInventoryException;
 use App\Exception\Resource\ResourceDoesNotExistException;
 use Merchant\DTO\BuyOfferDTO;
+use Merchant\Exception\MerchantAccountOfferBoughtCouldNotBeTrackedException;
+use Merchant\Exception\MerchantAccountWouldExceedOfferLimitException;
 use Merchant\Exception\MerchantInvalidOfferException;
 use Merchant\Exception\MerchantOfferBuyQuantityCanNotBeZeroOrLessException;
 use Merchant\Exception\MerchantOfferCouldNotBeFoundException;
-use Merchant\Service\MerchantTransactionService;
+use Merchant\Service\MerchantBuyService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -27,7 +29,7 @@ class MerchantOfferBuyCommand extends Command
 {
 
     public function __construct(
-        private readonly MerchantTransactionService $merchantTransactionService,
+        private readonly MerchantBuyService $merchantTransactionService,
     )
     {
         parent::__construct();
@@ -84,6 +86,10 @@ class MerchantOfferBuyCommand extends Command
             $output->writeln('<error>Buy offer cannot be zero or less</error>');
         } catch (MerchantOfferCouldNotBeFoundException $e) {
             $output->writeln('<error>Merchant offer could not be found</error>');
+        } catch (MerchantAccountOfferBoughtCouldNotBeTrackedException $e) {
+            $output->writeln('<error>The sale could not be tracked and was not fulfilled.</error>');
+        } catch (MerchantAccountWouldExceedOfferLimitException $e) {
+            $output->writeln('<error>The sale could not be fulfilled because the player would exceed the maximum sales per player for this offer.</error>');
         }
         return Command::FAILURE;
     }
