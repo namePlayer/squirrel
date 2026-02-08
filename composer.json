@@ -6,6 +6,11 @@
             "Merchant\\": "src/Merchant"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Squirrel\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "namePlayer",
@@ -29,6 +34,7 @@
         "symfony/yaml": "^8.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.5"
+        "phpunit/phpunit": "^12.5",
+        "symfony/var-dumper": "^8.0"
     }
 }

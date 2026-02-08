@@ -11,3 +11,5 @@
 /data/persistent/*
 !/data/persistent/.gitkeep
 db.sql
+
+/.phpunit.result.cache
